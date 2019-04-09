@@ -6,14 +6,12 @@
 /*   By: mwragg <mwragg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:43:01 by mwragg            #+#    #+#             */
-/*   Updated: 2019/04/03 14:12:54 by mwragg           ###   ########.fr       */
+/*   Updated: 2019/04/09 22:58:32 by mwragg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "get_next_line.h"
-
-/*get_fd();*/
 
 t_fd	*struct_init(const int fd)
 {
@@ -23,10 +21,6 @@ t_fd	*struct_init(const int fd)
 		return (NULL);
 	ft_bzero((void *)fdcontent, sizeof(t_fd));
 	fdcontent->fd = fd;
-//	ft_putendl("hi just checking the strcpy");
-//	ft_strcpy(fdcontent->buf, "hi does"); (checking buffer works, it does)
-//	ft_putstr(fdcontent->buf);
-//	ft_putnbr(fdcontent->len);
 	return (fdcontent);
 }
 
@@ -37,55 +31,66 @@ t_list	*doesthisfdexist(const int fd, t_list **elem)
 	head = elem;
 	while (*head)
 	{
-//		ft_putendl("hi i'm passing through, option 1.");
 		if (fd == ((t_fd *)(*head)->content)->fd )
 			return (*head);
 		head = &(*head)->next;
 	}
-//	ft_putendl("yes you do get here, option 2");
 	ft_lstadd(elem, ft_lstnew((void *)struct_init(fd), sizeof(t_fd)));
 	return (*elem);
 }
 
-/*void	print_list(t_list *elem)
+bufferisation
 {
-	int i;
-
-	i = 1;
-	while (elem)
+	ft_strnjoin_free(*line, c->buf +c->start, c->len, 1);
+	if (c->start == (BUFF_SIZE -1))
+		{
+		c->ret = 0;
+		c->len = 0;
+		c->start = 0;
+		}
+	else
 	{
-		ft_putstr("\nMaillon n*");
-		ft_putnbr(i);
-		ft_putendl(" :");
-		ft_putnbr(((t_fd *)elem->content)->fd);
-		ft_putendl("\n^FD");
-		ft_putnbr(((t_fd *)elem->content)->ret);
-		ft_putendl("Ret ok?");
-		ft_putstr(((t_fd *)elem->content)->buf);
-		ft_putendl("buf ok?");
-		ft_putnbr(ft_strlen(((t_fd *)(elem->content))->buf));
-		ft_putendl("putnbr du buf ok?");
-		ft_putnbr(((t_fd *)elem->content)->len);
-		ft_putendl("len ok?");
-		elem = elem->next;
-		i++;
-	}
-}*/
+	c->start = c->start +c->len +1;
+	c->ret =
+	}	
+	//when len == BUFFSIZE -1 it's that buffer is empty
+	//so bzero the boi and reset ret and len at 0;
+	ft_strnjoin_free((**line), buf +c->start, c->len,  );
+}
 
 int		get_next_line(const int fd, char **line)
 {
-	static t_list *elem;
+	static t_list	*elem;
+	t_list			*current;
+	t_fd			*c;
 
 	line = NULL;
-	ft_putendl("\nWELCOME TO GNL 01.04.2019");
-	doesthisfdexist(fd, &elem);
-//	print_list(elem);
-	ft_putnbr(sizeof(t_fd));
-	ft_putendl("<= sizeof t_fd value");
-
+	current = doesthisfdexist(fd, &elem);
+	c = ((t_fd*)current->content);
+	if (c->ret > 0)
+	{
+		if ((c->len != (BUFF_SIZE -1)) 
+			&& ((c->len = ft_strichr(c->buf +c->len, CUT_CHAR)) == -1))
+			ft_strjoin_free(*line, c->buf +c->len +1, 1);
+		else
+		{
+			ft_strnjoin(*line, c->buf + 
+			return qqchose;
+		}
+		bzero(buf, BUFF_SIZE);
+	}
+	while (((c->ret = read(c->fd, c->buf, BUFF_SIZE)) > 0)
+			&& ((c->len = ft_strichr(buf, CUT_CHAR)) == -1))
+		ft_strjoin_free(*line, buf);
+	if (c->ret == -1)
+		return (c->ret); //Error
+	if (c->ret == 0)
+	{
+		delelem + content
+			return (0); //EOF
+	}
+	//return (bufferisation());
 	return(1); /*read line*/
-	return(0); /*EOF*/
-	return(-1); /*Error*/
 }
 
 int		main(int ac, char **argv)
