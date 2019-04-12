@@ -6,7 +6,7 @@
 /*   By: mwragg <mwragg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:43:01 by mwragg            #+#    #+#             */
-/*   Updated: 2019/04/09 22:58:32 by mwragg           ###   ########.fr       */
+/*   Updated: 2019/04/12 20:47:14 by mwragg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ t_list	*doesthisfdexist(const int fd, t_list **elem)
 	return (*elem);
 }
 
-bufferisation
+int		bufferisation(char **line, t_fd *c)
 {
-	ft_strnjoin_free(*line, c->buf +c->start, c->len, 1);
-	if (c->start == (BUFF_SIZE -1))
+	if ((*line = ft_strnjoin_free(*line, c->buf +c->start, c->len, 1)) == NULL)
+		return (-1);
+	ft_putendl("salut t la ?");
+	if (c->start == BUFF_SIZE -1)
 		{
+			ft_putendl("boucle start/buffsize)");
 		c->ret = 0;
 		c->len = 0;
 		c->start = 0;
@@ -51,11 +54,12 @@ bufferisation
 	else
 	{
 	c->start = c->start +c->len +1;
-	c->ret =
-	}	
+	c->ret = c->ret -c->len;
+	}
+	return(7);
 	//when len == BUFFSIZE -1 it's that buffer is empty
 	//so bzero the boi and reset ret and len at 0;
-	ft_strnjoin_free((**line), buf +c->start, c->len,  );
+	//ft_strnjoin_free((**line), buf +c->start, c->len,  );
 }
 
 int		get_next_line(const int fd, char **line)
@@ -64,33 +68,38 @@ int		get_next_line(const int fd, char **line)
 	t_list			*current;
 	t_fd			*c;
 
-	line = NULL;
+	*line = NULL;
 	current = doesthisfdexist(fd, &elem);
 	c = ((t_fd*)current->content);
 	if (c->ret > 0)
 	{
-		if ((c->len != (BUFF_SIZE -1)) 
-			&& ((c->len = ft_strichr(c->buf +c->len, CUT_CHAR)) == -1))
-			ft_strjoin_free(*line, c->buf +c->len +1, 1);
+	ft_putendl("bufer not empty");
+		if ((c->len = ft_strichr(c->buf + c->start, CUT_CHAR)) == -1)
+		{
+			ft_putendl("
+			if ((*line = ft_strjoin_free(*line, c->buf +c->len +1, 1)) == NULL)
+				return (-1);
+		}
 		else
 		{
-			ft_strnjoin(*line, c->buf + 
-			return qqchose;
+			ft_putendl("entering buferisation pre-read");
+			return (bufferisation(line, c));
 		}
-		bzero(buf, BUFF_SIZE);
+		bzero(c->buf, BUFF_SIZE);
 	}
 	while (((c->ret = read(c->fd, c->buf, BUFF_SIZE)) > 0)
-			&& ((c->len = ft_strichr(buf, CUT_CHAR)) == -1))
-		ft_strjoin_free(*line, buf);
+			&& ((c->len = ft_strichr(c->buf, CUT_CHAR)) == -1))
+		*line = ft_strjoin_free(*line, c->buf, 1);
 	if (c->ret == -1)
 		return (c->ret); //Error
 	if (c->ret == 0)
 	{
-		delelem + content
+		ft_putendl("xd on verra apreees");
 			return (0); //EOF
 	}
-	//return (bufferisation());
-	return(1); /*read line*/
+	ft_putendl("entering buferisation post-read");
+	return (bufferisation(line, c));
+	return (126);
 }
 
 int		main(int ac, char **argv)
@@ -110,8 +119,25 @@ int		main(int ac, char **argv)
 //			ft_putendl(ft_itoa(get_next_line(10, &line)));
 //			ft_putendl("Putting 10 in for first time.");
 //			ft_putendl(ft_itoa(get_next_line(fd, &line)));
-			ft_putendl("Putting fd in for first time.");
-			ft_putendl(ft_itoa(get_next_line(12, &line)));
+				ft_putendl(line);
+				ft_putendl(ft_itoa(get_next_line(fd, &line)));
+				ft_putendl(line);
+				ft_putendl(ft_itoa(get_next_line(fd, &line)));
+				ft_putendl(line);
+				ft_putendl(ft_itoa(get_next_line(fd, &line)));
+				ft_putendl(line);
+				ft_putendl(ft_itoa(get_next_line(fd, &line)));
+				ft_putendl(line);
+				ft_putendl(ft_itoa(get_next_line(fd, &line)));
+				ft_putendl(line);
+				ft_putendl(ft_itoa(get_next_line(fd, &line)));
+				ft_putendl(line);
+				ft_putendl(ft_itoa(get_next_line(fd, &line)));
+				ft_putendl(line);
+				ft_putendl(ft_itoa(get_next_line(fd, &line)));
+				ft_putendl(line);
+				ft_putendl(ft_itoa(get_next_line(fd, &line)));
+				ft_putendl(line);
 //			ft_putendl("Putting 12 in for first time.");
 //			ft_putendl(ft_itoa(get_next_line(13, &line)));
 //			ft_putendl("Putting 13 in for first time.");
