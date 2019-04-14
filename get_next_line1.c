@@ -6,7 +6,7 @@
 /*   By: mwragg <mwragg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:43:01 by mwragg            #+#    #+#             */
-/*   Updated: 2019/04/14 23:50:02 by mwragg           ###   ########.fr       */
+/*   Updated: 2019/04/14 22:34:56 by mwragg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		get_next_line(const int fd, char **line)
 			ft_putendl("full buff + no cut char");
 			ft_putnbr(c->len);
 			ft_putendl("len VALUE2");
-			if ((*line = ft_strnjoin_free(*line, c->buf + c->start, c->ret, 1)) == NULL)
+			if ((*line = ft_strjoin_free(*line, c->buf + c->start, 1)) == NULL)
 				return (-1);
 			bzero(c->buf, BUFF_SIZE);
 			ft_putendl("boucle start/buffsize)");
@@ -106,9 +106,8 @@ int		get_next_line(const int fd, char **line)
 	while (((c->ret = read(c->fd, c->buf, BUFF_SIZE)) > 0)
 			&& ((c->len = ft_strichr(c->buf, CUT_CHAR)) == -1))
 	{
-		ft_putendl(c->buf);
 		ft_putendl("ye we readin' n' joinin'");
-		*line = ft_strnjoin_free(*line, c->buf, BUFF_SIZE, 1);
+		*line = ft_strjoin_free(*line, c->buf, 1);
 	}
 	if (c->ret == -1)
 		return (c->ret); //Error
@@ -127,7 +126,7 @@ int		main(int ac, char **argv)
 	int fd;
 	char *line;
 	line = ft_strnew(3);
-	ft_memset(line, '0', 3);
+	ft_memset(line, 'a', 3);
 	if (ac == 2)
 	{
 		if((fd = open(argv[1], O_RDONLY)) > 0)
