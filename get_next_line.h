@@ -23,7 +23,7 @@ typedef struct	s_fd
 {
 	int			fd;
 	int			ret;
-	char		buf[BUFF_SIZE];
+	char		buf[BUFF_SIZE + 1];
 	int			len;
 	int			start;
 }				t_fd;
