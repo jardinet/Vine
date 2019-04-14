@@ -6,7 +6,7 @@
 /*   By: mwragg <mwragg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:43:01 by mwragg            #+#    #+#             */
-/*   Updated: 2019/04/14 20:49:03 by mwragg           ###   ########.fr       */
+/*   Updated: 2019/04/14 22:34:56 by mwragg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		bufferisation(char **line, t_fd *c)
 	ft_putnbr(c->start);
 	ft_putendl("START VALUE");
 	c->start = c->start +c->len +1;
-	c->ret = c->ret -c->len -1;
+	c->ret = c->ret -c->len;
 	ft_putnbr(c->ret);
 	ft_putendl("RETURN VALUE");
 	ft_putnbr(c->start);
@@ -81,12 +81,14 @@ int		get_next_line(const int fd, char **line)
 	c = ((t_fd*)current->content);
 	if (c->ret > 0)
 	{
-	ft_putendl("bufer not empty");
+		ft_putnbr(c->len);
+		ft_putendl("len VALUE1");
+		ft_putendl("bufer not empty");
 		if ((c->len = ft_strichr(c->buf + c->start, CUT_CHAR)) == -1)
 		{
 			ft_putendl("full buff + no cut char");
 			ft_putnbr(c->len);
-			ft_putendl("len VALUE");
+			ft_putendl("len VALUE2");
 			if ((*line = ft_strjoin_free(*line, c->buf + c->start, 1)) == NULL)
 				return (-1);
 			bzero(c->buf, BUFF_SIZE);
@@ -103,7 +105,10 @@ int		get_next_line(const int fd, char **line)
 	}
 	while (((c->ret = read(c->fd, c->buf, BUFF_SIZE)) > 0)
 			&& ((c->len = ft_strichr(c->buf, CUT_CHAR)) == -1))
+	{
+		ft_putendl("ye we readin' n' joinin'");
 		*line = ft_strjoin_free(*line, c->buf, 1);
+	}
 	if (c->ret == -1)
 		return (c->ret); //Error
 	if (c->ret == 0)
@@ -134,39 +139,6 @@ int		main(int ac, char **argv)
 //			ft_putendl("Putting 10 in for first time.");
 //			ft_putendl(ft_itoa(get_next_line(fd, &line)));
 				ft_putendl(line);
-				ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
-				ft_putendl("//////////////////////////");
-				ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
-				ft_putendl("//////////////////////////");
-				ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
-				ft_putendl("//////////////////////////");
-				ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
-				ft_putendl("//////////////////////////");
-				ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
-				ft_putendl("//////////////////////////");
-				ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
-				ft_putendl("//////////////////////////");
-				ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
-				ft_putendl("//////////////////////////");
-				ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
-				ft_putendl("//////////////////////////");
-				ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
-				ft_putendl("//////////////////////////");
-				ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
-				ft_putendl("//////////////////////////");
-				ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
-				ft_putendl("//////////////////////////");
 				ft_putendl(ft_itoa(get_next_line(fd, &line)));
 				ft_putendl(line);
 				ft_putendl("//////////////////////////");
