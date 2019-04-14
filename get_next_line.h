@@ -6,7 +6,7 @@
 /*   By: mwragg <mwragg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 10:19:09 by mwragg            #+#    #+#             */
-/*   Updated: 2019/04/02 23:04:31 by mwragg           ###   ########.fr       */
+/*   Updated: 2019/04/14 22:35:45 by mwragg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "./Libft/libft.h"
-# define BUFF_SIZE 20
+# define BUFF_SIZE 10
 
 typedef struct	s_fd
 {
