@@ -6,7 +6,7 @@
 /*   By: mwragg <mwragg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:43:01 by mwragg            #+#    #+#             */
-/*   Updated: 2019/04/15 13:41:30 by mwragg           ###   ########.fr       */
+/*   Updated: 2019/04/15 14:07:18 by mwragg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,6 @@ int		bufferisation(char **line, t_fd *c)
 	return(1);
 }
 
-void	del(void *ptr, size_t size)
-{
-
-}
-
 int		get_next_line(const int fd, char **line)
 {
 	static t_list	*elem;
@@ -91,8 +86,7 @@ int		get_next_line(const int fd, char **line)
 	if (c->ret == -1)
 		return (c->ret); //Error
 	if (c->ret == 0)
-			return (0); //EOF
-	}
+				return (0); //EOF}
 	return (bufferisation(line, c));
 	return (126);
 }
@@ -120,6 +114,7 @@ int		main(int ac, char **argv)
 				ft_putstr(line);
 				free(line);
 			}
+			free(line);
 			while (1){};
 //			ft_putendl("Putting 12 in for first time.");
 //			ft_putendl(ft_itoa(get_next_line(13, &line)));
