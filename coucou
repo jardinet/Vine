@@ -1,3 +1,0 @@
-Position the cursor at the beginning of the text you want to cut/copy.
-Press v to begin character-based visual selection, or V to select whole lines, or Ctrl-v or Ctrl-q to select a block.
-Move the cursor to the end of the text to be cut/copied. While selecting text, you can perform searches and other advanced movement.
