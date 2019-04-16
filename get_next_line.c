@@ -6,27 +6,17 @@
 /*   By: mwragg <mwragg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:43:01 by mwragg            #+#    #+#             */
-/*   Updated: 2019/04/15 14:07:18 by mwragg           ###   ########.fr       */
+/*   Updated: 2019/04/16 12:21:13 by mwragg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "get_next_line.h"
 
-t_fd	*struct_init(const int fd)
-{
-	t_fd *fdcontent;
-
-	if((fdcontent = (t_fd *)malloc(sizeof(t_fd))) == NULL)
-		return (NULL);
-	ft_bzero((void *)fdcontent, sizeof(t_fd));
-	fdcontent->fd = fd;
-	return (fdcontent);
-}
-
 t_list	*doesthisfdexist(const int fd, t_list **elem)
 {
 	t_list **head;
+	t_fd *fdcontent;
 
 	head = elem;
 	while (*head)
@@ -35,7 +25,12 @@ t_list	*doesthisfdexist(const int fd, t_list **elem)
 			return (*head);
 		head = &(*head)->next;
 	}
-	ft_lstadd(elem, ft_lstnew((void *)struct_init(fd), sizeof(t_fd)));
+	if((fdcontent = (t_fd *)malloc(sizeof(t_fd))) == NULL)
+		return (NULL);
+	ft_bzero((void *)fdcontent, sizeof(t_fd));
+	fdcontent->fd = fd;
+	ft_lstadd(elem, ft_lstnew((void *)fdcontent, sizeof(t_fd)));
+	free(fdcontent);
 	return (*elem);
 }
 
@@ -81,8 +76,13 @@ int		get_next_line(const int fd, char **line)
 			return (bufferisation(line, c));
 	}
 	while (((c->ret = read(c->fd, c->buf, BUFF_SIZE)) > 0)
-			&& ((c->len = ft_strichr(c->buf, CUT_CHAR)) == -1))
+			&& (c->len = ft_strichr(c->buf, CUT_CHAR)) == -1)
+	{
+		ft_putnbr(c->ret);
 		*line = ft_strjoin_free(*line, c->buf, 1);
+	}
+	if (c->ret == 0 && NULL !=*line) /*CEST ICI QU JE REFLECHIS*/
+		return(1);
 	if (c->ret == -1)
 		return (c->ret); //Error
 	if (c->ret == 0)
@@ -99,7 +99,7 @@ int		main(int ac, char **argv)
 	//ft_memset(line, '0', 3);
 	if (ac == 2)
 	{
-		if((fd = open(argv[1], O_RDONLY)) > 0)
+		if((fd = open(argv[1], O_RDONLY)) > 0) /*&& (fd2 = open(argv[2], O_RDONLY)) > 0)*/
 		{
 //			ft_putendl(ft_itoa(get_next_line(25, &line)));
 //			ft_putendl("Putting 25 in for first time.");
@@ -108,20 +108,26 @@ int		main(int ac, char **argv)
 //			ft_putendl(ft_itoa(get_next_line(10, &line)));
 //			ft_putendl("Putting 10 in for first time.");
 //			ft_putendl(ft_itoa(get_next_line(fd, &line)));
-				ft_putendl(line);
 			while (get_next_line(fd, &line) != 0)
 			{
 				ft_putstr(line);
 				free(line);
 			}
 			free(line);
-			while (1){};
+/*			while (get_next_line(fd2, &line) != 0)
+			{
+				ft_putstr(line);
+				free(line);
+			}
+			free(line);
+				get_next_line(fd, &line);
+				free(line);
+			while (1){};*/
 //			ft_putendl("Putting 12 in for first time.");
 //			ft_putendl(ft_itoa(get_next_line(13, &line)));
 //			ft_putendl("Putting 13 in for first time.");
 //			ft_putendl(ft_itoa(get_next_line(25, &line)));
 //			ft_putendl("Putting 25 in for third time, after other numbers.");
-			ft_putendl("^GNL return value.");
 			return(1);
 		}
 		else
