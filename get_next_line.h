@@ -6,7 +6,7 @@
 /*   By: mwragg <mwragg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 10:19:09 by mwragg            #+#    #+#             */
-/*   Updated: 2019/04/15 12:11:31 by mwragg           ###   ########.fr       */
+/*   Updated: 2019/04/16 20:59:07 by mwragg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include "./Libft/libft.h"
-# define BUFF_SIZE 10 
+# include "libft.h"
+# define BUFF_SIZE 25
 # define CUT_CHAR '\n'
 
 typedef struct	s_fd
@@ -28,6 +28,6 @@ typedef struct	s_fd
 	int			start;
 }				t_fd;
 
-int		get_next_line(const int fd, char **line);
+int				get_next_line(const int fd, char **line);
 
 #endif
