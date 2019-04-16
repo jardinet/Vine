@@ -6,7 +6,7 @@
 /*   By: mwragg <mwragg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:43:01 by mwragg            #+#    #+#             */
-/*   Updated: 2019/04/16 12:21:13 by mwragg           ###   ########.fr       */
+/*   Updated: 2019/04/16 13:19:59 by mwragg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,14 @@ int		bufferisation(char **line, t_fd *c)
 {
 	if ((*line = ft_strnjoin_free(*line, c->buf +c->start, c->len +1, 1)) == NULL)
 		return (-1);
-	if (c->start > BUFF_SIZE -1)
+	/*if (c->start > BUFF_SIZE)
 		{
 		c->ret = 0;
 		c->len = 0;
 		c->start = 0;
-		}
-	else
-	{
+		}*/
 	c->start = c->start +c->len +1;
 	c->ret = c->ret -c->len;
-	}
 	return(1);
 }
 
@@ -78,10 +75,11 @@ int		get_next_line(const int fd, char **line)
 	while (((c->ret = read(c->fd, c->buf, BUFF_SIZE)) > 0)
 			&& (c->len = ft_strichr(c->buf, CUT_CHAR)) == -1)
 	{
-		ft_putnbr(c->ret);
-		*line = ft_strjoin_free(*line, c->buf, 1);
+		if ((*line = ft_strjoin_free(*line, c->buf, 1)) == NULL)
+				return(-1);
+		bzero(c->buf, c->ret);
 	}
-	if (c->ret == 0 && NULL !=*line) /*CEST ICI QU JE REFLECHIS*/
+	if (c->ret == 0 && *line != NULL && 0 != ft_strlen(*line))
 		return(1);
 	if (c->ret == -1)
 		return (c->ret); //Error
