@@ -6,7 +6,7 @@
 /*   By: mwragg <mwragg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 15:43:01 by mwragg            #+#    #+#             */
-/*   Updated: 2019/04/16 22:17:25 by mwragg           ###   ########.fr       */
+/*   Updated: 2019/04/17 10:56:45 by mwragg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int		get_next_line(const int fd, char **line)
 	if (!line)
 		return (-1);
 	*line = NULL;
-	current = doesthisfdexist(fd, &elem);
+	if ((current = doesthisfdexist(fd, &elem)) == NULL)
+		return (-1);
 	c = ((t_fd*)current->content);
 	if (c->ret > 0)
 	{
