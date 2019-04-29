@@ -6,7 +6,7 @@
 /*   By: mwragg <mwragg@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/31 10:19:09 by mwragg            #+#    #+#             */
-/*   Updated: 2019/04/16 20:59:07 by mwragg           ###   ########.fr       */
+/*   Updated: 2019/04/17 14:17:29 by mwragg           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include "libft.h"
+# include "./libft/includes/libft.h"
 # define BUFF_SIZE 25
 # define CUT_CHAR '\n'
 
